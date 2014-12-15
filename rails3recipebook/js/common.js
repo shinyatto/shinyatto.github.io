@@ -15,13 +15,35 @@ function create_tag_cloud(){
 	});
 	$('#tags-area').append(g_tag_html);
 	
+	/* toggle */
+	$('.strapline').each(function(){
+		tags = [];
+		$(this).find('a').each(function(){
+			tags.push($(this).attr('g-tag-id'));
+		});
+		$(this).attr('g-tag-ids', tags);
+	});
+	
+	
 	$('.tag-cloud').click(function(){
+		tag_id = $(this).attr('g-tag-id');
 		if($(this).hasClass('active')){
 			$(this).removeClass('active');
+			displays.splice(displays.indexOf(tag_id), 1);
 		}else{
 			$(this).addClass('active');
+			displays.push(tag_id);
 		}
+		
+		$('.strapline').each(function(){
+			disp = false;
+			tags = $($(this).attr('g-tag-ids').split(',')).each(function(i, val){
+				if($.inArray(val.toString(), displays) > -1) { disp = true; }
+			});
+			(disp) ? $(this).show() : $(this).hide();
+		});
 	});
+	
 }
 
 function create_tags(tags){
@@ -35,7 +57,7 @@ function create_tags(tags){
 				g_tags[val] = {tag_id: g_tag_count, tag: val ,count: 1};
 				tag_id = g_tag_count++;
 			}
-			item_t += '<a href="javascript:void(0);" class="label label-success tag g-tag-' + tag_id + '">' + val + '</a>';
+			item_t += '<a href="javascript:void(0);" class="label label-success tag" g-tag-id="' + tag_id + '">' + val + '</a>';
 		}
 	});
 	return item_t;
@@ -44,7 +66,7 @@ function create_tags(tags){
 function create_list_group_item_text(straplines){
   var item_s = '';
   $(straplines).map(function(){
-  	item_s += '<div class="list-group-item">';
+  	item_s += '<div class="list-group-item strapline">';
     item_s += '<p class="list-group-item-text">';
     item_s += this.num + '　' + this.title + ' P' + this.page + '〜';
     item_s += '</p>';
@@ -73,4 +95,3 @@ $(chapters).map(function(){
 });
 
 create_tag_cloud();
-
