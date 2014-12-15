@@ -40,7 +40,7 @@ function create_tag_cloud(){
 			tags = $($(this).attr('g-tag-ids').split(',')).each(function(i, val){
 				if($.inArray(val.toString(), displays) > -1) { disp = true; }
 			});
-			(disp) ? $(this).show() : $(this).hide();
+			(disp || displays.length == 0) ? $(this).show() : $(this).hide();
 		});
 	});
 	
