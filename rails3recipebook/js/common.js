@@ -11,7 +11,7 @@ function create_tag_cloud(){
 		g_tag_html += '<a href="javascript:void(0);" class="label label-success tag tag-cloud" g-tag-id="' + val.tag_id + '">';
 		g_tag_html += val.tag + ' (' + val.count + ')';
 		g_tag_html += '</a>';
-		if(tag_return == 6) { g_tag_html += '<br /><br />'; tag_return = 0; } else { tag_return++;}
+		if(tag_return == 2) { g_tag_html += '<br /><br />'; tag_return = 0; } else { tag_return++;}
 	});
 	$('#tags-area').append(g_tag_html);
 	
