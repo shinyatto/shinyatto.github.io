@@ -11,3 +11,12 @@ body {
 .tag {
   margin: 5px;
 }
+
+.tag-cloud {
+  margin-bottom: 30px;
+}
+
+.active {
+  background-color: #318837;
+}
+
